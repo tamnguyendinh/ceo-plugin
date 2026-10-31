@@ -1,0 +1,53 @@
+# Binaries and build artifacts
+/cmd/setup/dist_bin/
+bin/
+dist/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test artifacts and coverage
+*.test
+*.out
+coverage.txt
+
+# Local runtime session state and cache
+.anvien/
+.tmp/
+tmp/
+*.log
+
+# Operating System files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+dist/bin/
+
+# IDE and Editor configurations
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*~
+
+# Environment and sensitive keys
+.env
+.env.local
+.env.*.local
+*.jwt
+license.key
+
+# agents
+.agents/
+AGENTS.md
+CLAUDE.md
+agents.md
+claude.md

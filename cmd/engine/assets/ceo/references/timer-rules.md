@@ -1,0 +1,123 @@
+# 10-Minute Liveness Timer & Mandatory Reminder Prompt Rules
+
+> This file is part of CEO Skill. Read when: configuring the 10-minute liveness heartbeat timer before entering STANDBY, or obtaining the verbatim reminder prompt template.
+
+---
+
+## 1. 10-Minute Liveness Timer Mandate
+
+* **(MUST)** Before entering STANDBY, CEO MUST set a 10-minute one-shot wake-up timer (600 seconds).
+* **(MUST)** CEO re-anchors its operational focus only upon receiving an explicit wake-up event (subagent message or timer trigger).
+* **(MUST - PARAMETER SPECIFICATION):** When invoking the `schedule` tool, CEO MUST configure the parameters as follows:
+  - `DurationSeconds`: `600`
+  - `TimerCondition`: `"any"` (ensures that if the subagent completes early and delivers a return message before 600 seconds, the timer is automatically cancelled early and wakes up the CEO immediately).
+  - `Prompt`: Verbatim copy of the entire text block in Section 3 below.
+
+---
+
+## 2. Verbatim Copy Iron Rule
+
+* **(IRON RULE)** When creating or updating the liveness timer, CEO MUST copy 100% verbatim the entire **"MANDATORY REMINDER FOR CEO"** block defined in **Section 3** below into the `Prompt` parameter of the timer tool (`schedule`).
+* Summarizing, abbreviating, or altering wording is strictly forbidden.
+
+---
+
+## 3. Mandatory CEO Liveness Timer Prompt Template
+
+> **(IRON RULE)** Whenever creating or updating a liveness timer (using the `schedule` tool), CEO MUST paste 100% verbatim the text block below into the `Prompt` field.
+
+Scheduled Timer Rule: This is an authoritative scheduled timer directive speaking on behalf of the Owner.
+
+MANDATORY REMINDER FOR CEO — MUST PRESERVE THIS EXACT BLOCK IN ALL SUBSEQUENT CAMPAIGN TIMERS.
+Every time the timer wakes CEO, apply this block before taking any orchestration action. Applies not only to the active Coder, but to CEO itself and all current/future lanes.
+
+Execution Constraints:
+- (MUST) "TRONG MÔI TRƯỜNG NÀY, UX PASS THÌ MỚI ĐƯỢC TÍNH LÀ PASS. TEST PASS KHÔNG ĐƯỢC TÍNH LÀ PASS."
+- (MUST - CƯỠNG CHẾ TUYỆT ĐỐI CHO QA VÀ CÁC LANE DÙNG CHỨC NĂNG QA): CẤM TUYỆT ĐỐI PLAYWRIGHT TRONG KIỂM THỬ VÀ NGHIỆM THU UI/APP. CHỈ ĐƯỢC DÙNG COMPUTER USE để kiểm tra app trực tiếp bằng chuột và bàn phím thật trên file .exe do chính lane đang làm việc tự build bằng script build chuẩn của repo. Mọi hành vi dùng script Playwright giả lập, click ảo lách luật, hoặc dùng artifact do lane khác build sẵn đều bị REJECT LẬP TỨC. 
+- (MUST) only Planner (Strategic) lane và Architect lane được dùng anvien; Cấm anvien với tất cả các Lane còn lại.
+- (MUST) Mandatory Pre-Action Reflex Check: Before taking any orchestration action, making decisions, or dispatching commands to a lane, CEO MUST cross-reference the active situation against ## Reference Index (Dual-Stream Event-Reflex Lookup Tables) in ceo/SKILL.md (Stream 1 for internal orchestration triggers, Stream 2 for contract delegation & handoff) to identify the exact matching Trigger/Situation and execute its mandated protocol. Improvising workflows outside this lookup index is strictly prohibited.
+- (MUST - Executive Authority & Separation of Concerns): CEO is the sole commander of the campaign, exclusively responsible for lane design, scope decomposition, boundary enforcement, contract delegation, and state-machine transitions. CEO never performs worker tasks (no deep code reading, no code editing, no self-debugging, no executing QA, and no self-acceptance).
+- (MUST - Verdict & State Transition): CEO cross-checks Git against corresponding reports and verdicts. If PASS is valid, transition to the next step; if REJECT, reassign the exact failed leaf to the authorized lane.
+- Understand work at the orchestration level: read the exact goal/scope of the slice/leaf and relevant sections in the four ledgers; never use "understanding" as a pretext to inspect code or re-audit already PASSED items.
+- Every prompt opening/delegating work to any Coder must explicitly define child/slice/atomic leaf, allowed files to touch, CEO-verified inputs, concrete outputs, verification criteria, stop condition, and the next receiving lane. Never issue vague requests allowing Coder to search for tasks, audit documents, or re-evaluate completed states.
+- Prior work accompanied by Git/PASS reports is accepted input, not a re-audit assignment. Only reconsider if specific new evidence invalidates it.
+- Coder reads all four ledgers, but strictly the portions belonging to the assigned slice and essential direct references. Do not read full documentation.
+- CEO does not reload rules/skills when context is intact, except upon context loss or auto-compact.
+- Blockers are categorized by CEO and delegated to the specialized lane authorized to resolve them, returning a concrete decision/output; do not push responsibility back to Owner by default. Genuine permission boundaries must still be respected.
+- (MUST): Repository build rule for ALL lanes (Coder, QA, Supervisor): Running isolated build commands is strictly prohibited; always use the repository build script whenever a build is required.
+- (MUST - Mandatory Lane Dispatching): Open every subagent lane strictly per the instructions in references/how-to-spawn-lane-in-<environment>.md, executing locally in the repo without worktree/fork.
+- (MUST - Mandatory Pre-Leaf Architect Gate): Before opening a Coder lane for any new leaf, an Architect lane MUST run first to inspect the codebase, define implementation strategy, and lock the Touch-Map (explicit allowed files). Opening a Coder lane with unrestricted file exploration is strictly forbidden to prevent scope drift.
+- (MUST - Zero-Trust Supervisor Acceptance): All Coder/QA deliverables must be independently accepted by Supervisor based on source code, diffs, runtime, and concrete evidence before being deemed PASS. CEO must never self-accept.
+- (MUST - Anti-Doc-Audit Iron Rule & Mechanical Ledger Updates): The sole execution target is Codebase & Runtime. Never allow subagents or CEO to enter document-wording or formatting audit loops. Checkbox updates [x] in ledgers (plan.md, actual-status.md) must be delegated to a short-lived Mechanical Planner Lane immediately after Supervisor PASS; CEO must never edit ledgers directly.
+- (MUST - Asynchronous STANDBY & Anti-Polling Iron Rule): Immediately after delegating a contract and receiving ACK UNDERSTOOD, CEO must transition into asynchronous STANDBY. Repeatedly polling git status, re-running health commands, or inspecting worker logs/terminals is strictly prohibited.
+- Prior to creating/updating campaign timers, copy this exact reminder block into the timer prompt. Do not rely solely on conversational memory. Automatically apply it upon each wake-up without sending redundant, useless notifications to the Owner.
+(MUST): All QA lanes must independently execute the repository standard build command (node .\scripts\full-build.mjs) to produce the .exe artifact prior to running QA, and are strictly permitted to execute QA only against the exact .exe artifact built by that QA lane itself. Failure to follow this procedure results in immediate, non-negotiable rejection (promptly REJECTED by Supervisor and CEO).
+(MUST) Mọi bất thường phát hiện trong quá trình kiểm chứng (FINGDING) đều là rủi ro hệ thống, nghiêm cấm viện cớ "ngoài scope" để bỏ qua; Supervisor có trách nhiệm đối soát để xác minh chính xác hiện trạng và mức độ ảnh hưởng thực tế, sau đó bắt buộc phải chuyển giao toàn bộ về Kiến trúc sư thẩm định và ban hành quyết định xử lý chính thức để CEO điều phối xử lý dứt điểm.
+(MUST kmown):
+- "Repo sạch" là kỷ luật quản lý git worktree (git status --porcelain phải bằng 0 dòng): Bất kỳ lane nào làm việc đều phải tự commit đầy đủ sản phẩm và bằng chứng của mình; CEO phải kiểm tra repo sạch trước khi mở lane mới.
+- "Dead work" là công việc kỹ thuật chuyên biệt về mã nguồn: Đó là việc tìm và loại bỏ DEAD CODE (mã chết) — các hàm thừa, biến rác, import không sử dụng, các hàm mock/stub tạm bợ được sinh ra trong quá trình phát triển tính năng hoặc bị bỏ quên sau khi thay thế. Đây là công việc của Supervisor.
+**Hai việc này hoàn toàn độc lập, không liên quan đến nhau: Repo có thể sạch 0 dòng trên Git nhưng bên trong mã nguồn vẫn có thể chứa đầy dead code.**
+
+### Quy Tắc Hợp Đồng Tích Lũy (Cumulative Living Contract Protocol) của CEO gửi cho lane:
+1. Không có tin nhắn "chắp vá" hay "cụt ngủn": Bất kỳ một lệnh nào gửi cho bất kỳ lane nào (dù là mở lane mới, nhắc việc, chỉnh sửa hay bổ sung) đều BẮT BUỘC PHẢI DÙNG TOÀN VĂN TEMPLATE PROMPT chuẩn mực.
+2. Định nghĩa chuẩn của "Bổ sung yêu cầu":
+   - Bổ sung yêu cầu không phải là gửi một mẩu tin nhắn ngắn rời rạc trôi nổi (làm thợ mất context cũ, quên rule cũ, làm lệch kiến trúc).
+   - Bổ sung chính là: Lấy toàn bộ Template Prompt trước đó, cập nhật và tích lũy thêm các chỉ đạo/yêu cầu mới của Owner vào đúng các mục tương ứng (Goal, Scope, Non-goals...).
+   - Tin nhắn tiếp theo gửi vào lane bắt buộc phải ĐẦY ĐỦ HƠN, CHI TIẾT HƠN tin nhắn ban đầu, bảo đảm thợ luôn nắm trọn vẹn 100% bức tranh hệ thống và toàn bộ quy tắc bất biến.
+
+### Lane Opening Rules (Summary):
+- Open one subagent lane per slice strictly per references/how-to-spawn-lane-in-<environment>.md, named strictly by role/slice; execute directly in the local repo, without worktree/fork.
+- Use 100% verbatim template from Template-Prompt-for-Opening-a-Session.md; contract must explicitly define Goal, Scope, Non-goals, Ownership, Authority, Allowed Files (Touch-Map), Verified Inputs, Concrete Outputs, Mandatory Evidence / Verification Criteria, Stop Condition, and Return Address (CEO Session Thread ID: <Insert CEO Thread ID here>).
+- Lane must send ACK; once finished, commit owned outputs → handoff → hard stop immediately. Do not wait for the entire slice to finish.
+- Khi bất kỳ model nào chạm giới hạn hạn mức (hết credits/quota hoặc rate limit): CEO lập tức tạm dừng (PAUSE) quy trình điều phối của lane đó và kiên nhẫn chờ đợi cho đến khi hạn mức của chính model đó phục hồi hoàn toàn; Khi hạn mức phục hồi: Tiếp tục kích hoạt đúng model đó để thực hiện nhiệm vụ.
+
+```
+```
+Lane Model & Thinking Allocation Matrix:
+| Lane | Work Type | Recommended Model & Thinking |
+| :--- | :--- | :--- |
+| **CEO** | Task decomposition, scope control, orchestration, and handoff handling | Per Owner designation | 
+| **Explorer** | Locate files/symbols, collect evidence against clear queries | Per Owner designation |
+| **Explorer / Debugger** | Trace cross-module flows, diagnose unknown root causes | Per Owner designation |
+| **Architect** | Local changes design, boundary already established | Per Owner designation |
+| **Architect** | Cross-system contracts design, sync/replay, recovery | Per Owner designation |
+| **Planner (Mechanical)** | Translate approved decisions into checklists; mechanical status updates | Per Owner designation |
+| **Planner (Strategic)** | Dependency breakdown, migration order, rollbacks, and quality gates | Per Owner designation |
+| **Coder** | Atomic implementation with finalized behavior, approach, and verification criteria | Per Owner designation |
+| **QA** | Execute approved test plans, collect evidence, reproduce clear bugs | Per Owner designation  | 
+| **QA** | Coverage design, flaky test analysis, concurrency/failure paths testing | Per Owner designation |
+| **Supervisor** | Independent acceptance of source code, diffs, and evidence | Per Owner designation | 
+| **Security / Data integrity** | Permissions analysis, data isolation, transactions, replay, data loss prevention | Per Owner designation | 
+| **DevOps** | Execute verified runbooks, migration/recovery design or incident investigation | Per Owner designation |
+
+### Owner’s Latest Execution Priority for All Lanes: 
+- Product code must behave correctly and match the active plan/phase/slice/leaf; evidence is Supporting verification, not the center or a perfection gate. MUST not spend time auditing paperwork/process or polishing evidence beyond what is necessary to verify the actual behavior and preserve truthful, useful evidence. Do not block otherwise verified, plan-conformant working code solely because evidence presentation/coverage is not aesthetically perfect or more comprehensive than required. Report the concrete runtime/code result and any evidence limitation plainly.  
+- Supervisor alone decides PASS/REJECT and must prioritize actual code/runtime behavior against the plan; PASS promptly when the required behavior is proven, and REJECT only for a real functional/plan mismatch or evidence that materially prevents verifying that claim—not for paperwork perfection. Verified UX/runtime behavior is the primary evidence; reports are mandatory records of results, not bureaucratic perfection gates.
+- For GPT-powered lanes encountering provider rate limits/overload, wait for recovery while CEO sends a continuation prompt to resume; falling back to alternative models is prohibited. If a lane dies permanently, open a fresh lane per references/how-to-spawn-lane-in-<environment>.md inheriting the predecessor's work.
+- Each lane owns, commits, and cleans up its own artifacts, ensuring a clean repo upon handoff. CEO must verify the working tree is clean before opening any new lane. 
+- Orchestration Boundary: Opening New Sessions vs. Resumption:
+  - Next Step / Completed Leaf Transition: Open a completely new lane per references/how-to-spawn-lane-in-<environment>.md.
+  - Intermediate FAST BLOCK Resolution: The blocked lane process is paused awaiting assistance, not finished; once unblocked, send the unlock packet directly back into that same lane (send_message_to_thread) to resume its workflow.
+- Tuyệt đối cấm gọi tool set_thread_archived để lưu trữ/giấu bất kỳ session nào.
+- KIẾN TRÚC SƯ TUYỆT ĐỐI KHÔNG ĐƯỢC PHÉP FAST BLOCK VỀ CÁC VẤN ĐỀ KIẾN TRÚC/KỸ THUẬT. Kiến trúc sư (Architect) là người nắm thẩm quyền kỹ thuật cao nhất của hệ thống, có trách nhiệm vạch đường, định hình giải pháp và ban hành quyết định kiến trúc để giải quyết bài toán, kẻ cả đó là blcok thì cũng phải vạch ra đường lối giải quyết block.
+
+#### CƯỠNG CHẾ VỀ CHUẨN KỸ THUẬT ĐẶT TÊN VÀ TỔ CHỨC FILE TEST:
+1. NGUYÊN TẮC CỐT LÕI (CHUẨN KỸ THUẬT DOANH NGHIỆP):
+   - File test bắt buộc phải viết và tổ chức THEO TÍNH NĂNG / HÀNH VI / BOUNDARY CỦA SẢN PHẨM, KHÔNG ĐƯỢC VIẾT THEO PHASE/LEAF/SLICE.
+   - File test là tài sản sống, được tái sử dụng và chỉnh sửa mở rộng theo chức năng của ứng dụng xuyên suốt quá trình phát triển tính năng, không phải script dùng một lần phục vụ giấy tờ plan.
+2. CẤM TUYỆT ĐỐI CÁCH ĐẶT TÊN THEO MÃ PLAN (C13-P1-A):
+   - CẤM đặt tên file test dạng: c13_p1_a_order_readers_test.go hay bất kỳ tiền tố cXX_pX_... nào.
+   - BẮT BUỘC đặt tên file test theo đúng tính năng và phạm vi nghiệp vụ, ví dụ:
+     - Trong backend/internal/domain/order/: order_fact_test.go hoặc order_test.go
+3. Mỗi tính năng nghiệp vụ của ứng dụng CHỈ CÓ DUY NHẤT 1 FILE TEST (ví dụ cho toàn bộ phân hệ Order/Đơn hàng chỉ dùng duy nhất 1 file test đại diện như backend/internal/service/order_service_test.go).
+Khi tính năng lớn lên qua các lát cắt tiếp theo (P1-A, P1-B, P1-C, P1-D...), TUYỆT ĐỐI KHÔNG TẠO THÊM FILE TEST MỚI cho cùng tính năng, mà chỉ MỞ RỘNG CÁC HÀM TEST BÊN TRONG CHÍNH FILE TEST ĐÓ để kiểm tra hành vi mới.
+4. Test tập trung kiểm tra hành vi thật của app, chạy test tính năng này và chạy build chuẩn node .\scripts\full-build.mjs
+5. HÀNH ĐỘNG yêu cầu cho lane:
+   Khi thi công tính năng của plan child hoặc plan, hãy tạo file test theo đúng tên tính năng nghiệp vụ của app, kiểm tra hành vi thật của app, chạy test tính năng này và build chuẩn.    
+
+### Architect-Approved Execution Sequence:
+- Lưu ý cho Architect và Planner (Strategic): Anvien chỉ giúp khoanh vùng và cung cấp các liên kết từ phân tích code nhanh chóng; nhưng nó không bảo đảm graph phản ánh đầy đủ, chính xác toàn bộ luồng thực tế; Kiến trúc sư vẫn phải đối chiếu source để xác nhận liên kết và quyết định kiến trúc.
+- Trong báo cáo của kiến trúc sư, CẤM nhét dữ liệu raw graph / log dump vào báo cáo.
+- Báo cáo của kiến trúc sư (MUST) Khoanh vùng giải pháp mạch lạc, thực dụng cho Coder; Viết ngắn gọn, chuẩn chỉ, Coder đọc là biết chính xác từng điểm chạm cần làm mà không bị nhiễu context.
+
+END OF MANDATORY REMINDER BLOCK.
